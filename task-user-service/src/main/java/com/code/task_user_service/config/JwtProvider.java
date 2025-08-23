@@ -1,5 +1,6 @@
 package com.code.task_user_service.config;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -26,8 +27,18 @@ public class JwtProvider {
                 .signWith(key)
                 .compact();
 
+   return jwt;
 
+    }
 
+    public static String getEmailFromJwtToken(String jwt){
+        jwt = jwt.substring(7);
+        Claims claims =  Jwts.parser().setSigningKey(key).build().parseClaimsJwt(jwt).getBody();
+
+        String email = String.valueOf(claims.get("email"));
+        //convet any type to string like here object convert into the string
+
+        return email;
     }
     public static String populateAuthorities(Collection<? extends GrantedAuthority> collections){
         Set<String> auths = new HashSet<>();
