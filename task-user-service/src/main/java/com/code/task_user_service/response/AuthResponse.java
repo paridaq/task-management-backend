@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthResponse {
-    String jwt;
+  private   String jwt;
 
-    String message ;
+    private String message ;
 
-    String status;
+  private   Boolean status;
 
 }
