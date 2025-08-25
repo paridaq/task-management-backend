@@ -42,6 +42,7 @@ public class JwtProvider {
     }
     public static String populateAuthorities(Collection<? extends GrantedAuthority> collections){
         Set<String> auths = new HashSet<>();
+        //this way we could change the hashset into treeset all this without changing the variable
         for(GrantedAuthority authority:collections){
             auths.add(authority.getAuthority());
 
