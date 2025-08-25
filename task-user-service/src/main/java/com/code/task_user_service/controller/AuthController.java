@@ -3,15 +3,18 @@ package com.code.task_user_service.controller;
 import com.code.task_user_service.config.JwtProvider;
 import com.code.task_user_service.modal.User;
 import com.code.task_user_service.repository.UserRepository;
+import com.code.task_user_service.request.LoginRequest;
 import com.code.task_user_service.response.AuthResponse;
 import com.code.task_user_service.service.CustomerUserServiceImplementaion;
 import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,6 +78,38 @@ public class AuthController {
      }
 
      @PostMapping("/singin")
-    public ResponseEntity<AuthResponse>sigin(@RequestBody LoginRequest loginRequest)
+    public ResponseEntity<AuthResponse>sigin(@RequestBody LoginRequest loginRequest){
+
+         String username = loginRequest.getEmail();
+         String password = loginRequest.getPassword();
+         System.out.println(username+ "======"+password);
+         Authentication authentication = authenticate(username,password);
+         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+         String token = JwtProvider.generateToken(authentication);
+         AuthResponse authResponse = new AuthResponse();
+         authResponse.setMessage("login successful");
+         authResponse.setJwt(token);
+         authResponse.setStatus(true);
+         return new ResponseEntity<AuthResponse>(authResponse,HttpStatus.OK);
+     }
+
+
+     private Authentication authenticate(String username,String password){
+         UserDetails userDetails = customerUserDetails.loadUserByUsername(username);
+         System.out.println("singin with userDetails"+userDetails);
+
+         if(userDetails==null){
+             System.out.println("signin with userDetails"+userDetails);
+             throw new BadCredentialsException("Invalid username or password");
+
+         }
+         if(!passwordEncoder.matches(password,userDetails.getPassword())){
+             System.out.println("singin in userdetails = password not match"+userDetails);
+             throw new BadCredentialsException("Invalid username or password");
+         }
+         return new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+     }
+
 
 }
