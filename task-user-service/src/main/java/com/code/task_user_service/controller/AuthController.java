@@ -18,22 +18,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/auth")
 
 public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
-     @Autowired
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
      @Autowired
     private CustomerUserServiceImplementaion customerUserDetails;
 
      @PostMapping("/signup")
-
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws Exception{
          String email = user.getEmail();
                  String password = user.getPassword();
@@ -77,8 +79,8 @@ public class AuthController {
 
      }
 
-     @PostMapping("/singin")
-    public ResponseEntity<AuthResponse>sigin(@RequestBody LoginRequest loginRequest){
+     @PostMapping("/signin")
+    public ResponseEntity<AuthResponse>signIn(@RequestBody LoginRequest loginRequest){
 
          String username = loginRequest.getEmail();
          String password = loginRequest.getPassword();
