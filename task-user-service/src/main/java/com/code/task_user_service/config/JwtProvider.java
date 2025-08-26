@@ -33,7 +33,7 @@ public class JwtProvider {
 
     public static String getEmailFromJwtToken(String jwt){
         jwt = jwt.substring(7);
-        Claims claims =  Jwts.parser().setSigningKey(key).build().parseClaimsJwt(jwt).getBody();
+        Claims claims =  Jwts.parser().setSigningKey(key).build().parseSignedClaims(jwt).getBody();
 
         String email = String.valueOf(claims.get("email"));
         //convet any type to string like here object convert into the string

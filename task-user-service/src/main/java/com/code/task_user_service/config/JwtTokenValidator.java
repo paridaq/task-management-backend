@@ -33,7 +33,7 @@ public class JwtTokenValidator extends OncePerRequestFilter {
             //skip the first 7 letters
             try{
                 SecretKey key = Keys.hmacShaKeyFor(  JwtConstant.SECRET_KEY.getBytes());
-                Claims claims= Jwts.parser().setSigningKey(key).build().parseClaimsJwt(jwt).getBody();
+                Claims claims= Jwts.parser().setSigningKey(key).build().parseSignedClaims(jwt).getBody();
                 String email = String.valueOf(claims.get("email"));
                 String authorities = String.valueOf(claims.get("authorities"));
                 List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
