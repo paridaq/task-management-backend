@@ -1,4 +1,4 @@
-package com.example.task_service;
+package com.task.service.task_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
