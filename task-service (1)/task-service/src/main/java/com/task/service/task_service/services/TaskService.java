@@ -8,7 +8,7 @@ import java.util.List;
 public interface TaskService {
 
 
-    Task createTask(Task task,String RequesterRole) throws  Exception;
+    Task createTask(Task task,String requesterRole) throws  Exception;
 
     Task getTaskById(Long id) throws  Exception;
 
@@ -20,10 +20,11 @@ public interface TaskService {
 
     Task assignedToUser( Long id,Long taskId) throws  Exception;
 
-    List<Task>assignedUsersTask(Long userId,TaskStatus status);;
+    List<Task>assignedUsersTask(Long userId,TaskStatus status);
 
 
-    Task completeTask(Long taskId);
+    Task completeTask(Long taskId) throws Exception;
+
 
 
 
