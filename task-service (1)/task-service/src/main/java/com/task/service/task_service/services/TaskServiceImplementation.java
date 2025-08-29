@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskServiceImplementation implements TaskService{
     @Autowired
@@ -31,26 +32,54 @@ public class TaskServiceImplementation implements TaskService{
 
     @Override
     public List<Task> getAllTask(TaskStatus status) {
-        return List.of();
+        List<Task>allTask = taskRepository.findAll();
+        List<Task>filterdTask = allTask.stream().filter(
+                task -> status==null || task.getStatus().name().equalsIgnoreCase(status.toString())
+
+        ).collect(Collectors.toList());
+        return filterdTask;
     }
 
     @Override
     public Task updateTask(Long id, Task updatedTask, Long userId) throws Exception {
-        return null;
+        Task existingTask = getTaskById(id);
+        if(updatedTask.getTitle()!=null){
+            existingTask.setTitle(updatedTask.getTitle());
+        }
+        if(updatedTask.getImage()!=null){
+            existingTask.setTitle(updatedTask.getImage());
+        }
+        if(updatedTask.getDescription()!=null){
+            existingTask.setDescription(updatedTask.getDescription());
+        }
+        if(updatedTask.getStatus()!=null){
+            existingTask.setStatus(updatedTask.getStatus());
+        }
+        if(updatedTask.getDeadLine()!=null){
+            existingTask.setDeadLine(updatedTask.getDeadLine());
+        }
+        return taskRepository.save(existingTask);
     }
 
     @Override
-    public void deleteTask(Long id) {
+    public void deleteTask(Long id) throws Exception {
+        getTaskById(id);
+        taskRepository.deleteById(id);
 
     }
 
     @Override
-    public Task assignedToUser(Long id, Long taskId) throws Exception {
-        return null;
+    public Task assignedToUser(Long userId, Long taskId) throws Exception {
+        Task task = getTaskById(taskId);
+        task.setAssignedUserId(userId);
+        task.setStatus(TaskStatus.DONE);
+
+        return taskRepository.save(task);
     }
 
     @Override
     public List<Task> assignedUsersTask(Long userId, TaskStatus status) {
+        List<Task> allTask = taskRepository.
         return List.of();
     }
 

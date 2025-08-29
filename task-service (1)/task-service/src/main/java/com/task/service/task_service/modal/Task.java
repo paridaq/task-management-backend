@@ -30,7 +30,7 @@ public class Task {
 
     private  String image;
 
-    private String assignedUserId;
+    private Long assignedUserId;
 
     private List<String>tags = new ArrayList<>();
 
