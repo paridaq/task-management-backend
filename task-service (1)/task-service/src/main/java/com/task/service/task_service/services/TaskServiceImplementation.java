@@ -79,12 +79,15 @@ public class TaskServiceImplementation implements TaskService{
 
     @Override
     public List<Task> assignedUsersTask(Long userId, TaskStatus status) {
-        List<Task> allTask = taskRepository.
-        return List.of();
+        List<Task> allTask = taskRepository.findByAssignedUserId(userId);
+        List<Task> filteredTasks = allTask.stream().filter(task -> status==null || task.getStatus().name().equalsIgnoreCase(status.toString())).collect(Collectors.toList());
+        return filteredTasks;
     }
 
     @Override
     public Task completeTask(Long taskId) throws Exception {
-        return null;
+        Task task = getTaskById(taskId);
+        task.setStatus(TaskStatus.DONE);
+        return taskRepository.save(task);
     }
 }
