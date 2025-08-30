@@ -23,12 +23,13 @@ public class TaskController {
 
      @Autowired
     private UserService userService;
+
     @PostMapping("")
     public ResponseEntity<Task>createTask(@RequestBody Task task, @RequestHeader("Authorization") String jwt) throws Exception {
         UserDto user = userService.getUserProfile(jwt);
         Task createdTask = taskService.createTask(task,user.getRole());
 
-        return new ResponseEntity<>(createdTask, HttpStatus.CREATED)
+        return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
 
     }
     @GetMapping("/{id}")
@@ -45,6 +46,7 @@ public class TaskController {
         List<Task> tasks = taskService.assignedUsersTask(user.getId(),status);
         return new ResponseEntity<>(tasks,HttpStatus.CREATED);
     }
+    @GetMapping()
     public ResponseEntity<List<Task>> getAllTasks(@RequestParam(required = false) TaskStatus status
                                                   ,@RequestHeader("Authorization") String jwt){
        UserDto user = userService.getUserProfile(jwt);
