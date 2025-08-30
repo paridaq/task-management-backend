@@ -2,8 +2,10 @@ package com.task.service.task_service.services;
 
 import com.task.service.task_service.modal.Task;
 import com.task.service.task_service.modal.TaskStatus;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 public interface TaskService {
 

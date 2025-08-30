@@ -74,7 +74,7 @@ public class TaskController {
         Task task = taskService.updateTask(id,req,user.getId());
         return new ResponseEntity<>(task,HttpStatus.OK);
     }
-    @PutMapping ("/{id}")
+    @PutMapping ("/{id}/complete")
     public ResponseEntity<Task> completeTask(@PathVariable Long id) throws Exception{
 
         Task task = taskService.completeTask(id);

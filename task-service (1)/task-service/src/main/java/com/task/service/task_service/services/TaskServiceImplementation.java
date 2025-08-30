@@ -4,11 +4,13 @@ import com.task.service.task_service.modal.Task;
 import com.task.service.task_service.modal.TaskStatus;
 import com.task.service.task_service.repositry.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class TaskServiceImplementation implements TaskService{
     @Autowired
     private TaskRepository taskRepository;
