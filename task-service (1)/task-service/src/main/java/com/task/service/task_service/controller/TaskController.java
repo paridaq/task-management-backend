@@ -44,5 +44,33 @@ public class TaskController {
         List<Task> tasks = taskService.assignedUsersTask(user.getId(),status);
         return new ResponseEntity<>(tasks,HttpStatus.CREATED);
     }
+    public ResponseEntity<List<Task>> getAllTasks(@RequestParam(required = false) TaskStatus status
+                                                  ,@RequestHeader("Authorization") String jwt){
+       UserDto user = userService.getUserProfile(jwt);
+       List<Task> tasks = taskService.getAllTask(status);
+       return new ResponseEntity<>(tasks,HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/user/{userid}/assigned")
+    public ResponseEntity<Task> assignedTaskToUser(
+            @PathVariable Long id,
+            @PathVariable Long userid,
+            @RequestHeader("Authorization") String jwt
+    ) throws  Exception{
+        UserDto user = userService.getUserProfile(jwt);
+        Task task = taskService.assignedToUser(userid,id);
+        return new ResponseEntity<>(task,HttpStatus.OK);
+
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Task>updateTask(@PathVariable Long id,
+                                          @RequestBody Task req,
+                                          @RequestHeader("Authorization")String jwt) throws Exception{
+
+        UserDto user = userService.getUserProfile(jwt);
+        Task task = taskService.updateTask(id,req,user.getId());
+        return new ResponseEntity<>(task,HttpStatus.OK);
+    }
+
 
 }
