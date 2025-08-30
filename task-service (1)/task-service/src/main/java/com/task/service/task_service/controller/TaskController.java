@@ -7,6 +7,7 @@ import com.task.service.task_service.services.TaskService;
 import com.task.service.task_service.services.UserService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,6 +72,20 @@ public class TaskController {
         Task task = taskService.updateTask(id,req,user.getId());
         return new ResponseEntity<>(task,HttpStatus.OK);
     }
+    @PutMapping ("/{id}")
+    public ResponseEntity<Task> completeTask(@PathVariable Long id) throws Exception{
+
+        Task task = taskService.completeTask(id);
+        return new ResponseEntity<>(task, HttpStatus.OK);
+
+
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void>deleteTask(@PathVariable Long id) throws Exception{
+        taskService.deleteTask(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 
 }
