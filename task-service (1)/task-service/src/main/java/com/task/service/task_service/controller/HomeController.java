@@ -1,3 +1,4 @@
+
 package com.task.service.task_service.controller;
 
 
@@ -13,5 +14,6 @@ public class HomeController {
     public ResponseEntity<String>getAssignedUserTasks(){
         return new ResponseEntity<>("welcome to the task service", HttpStatus.OK);
     }
+    //for home page
 
 }
