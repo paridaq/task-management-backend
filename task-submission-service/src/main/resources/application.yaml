@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: TASK-SERVICE
+    name: SUBMISSION-SERVICE
 
 
   jpa:
@@ -11,7 +11,7 @@ spring:
       ddl-auto: update
 
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/task-service
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/task-submission-service
     username: root
     password: Biswajit@091
     driver-class-name: com.mysql.cj.jdbc.Driver
