@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface UserService {
 
 
-@GetMapping("/api/users/profile")
+@GetMapping("/api/user/profile")
     public UserDto getUserProfile(@RequestHeader("Authorization") String jwt);
 }

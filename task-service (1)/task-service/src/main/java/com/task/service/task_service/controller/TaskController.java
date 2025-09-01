@@ -24,7 +24,7 @@ public class TaskController {
      @Autowired
     private UserService userService;
 
-    @PostMapping("")
+    @PostMapping()
     public ResponseEntity<Task>createTask(@RequestBody Task task, @RequestHeader("Authorization") String jwt) throws Exception {
         UserDto user = userService.getUserProfile(jwt);
         Task createdTask = taskService.createTask(task,user.getRole());

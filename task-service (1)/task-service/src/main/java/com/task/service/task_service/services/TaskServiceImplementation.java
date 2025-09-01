@@ -49,7 +49,7 @@ public class TaskServiceImplementation implements TaskService{
             existingTask.setTitle(updatedTask.getTitle());
         }
         if(updatedTask.getImage()!=null){
-            existingTask.setTitle(updatedTask.getImage());
+            existingTask.setImage(updatedTask.getImage());
         }
         if(updatedTask.getDescription()!=null){
             existingTask.setDescription(updatedTask.getDescription());
