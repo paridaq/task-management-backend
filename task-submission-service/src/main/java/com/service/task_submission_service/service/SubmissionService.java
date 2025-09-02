@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SubmissionService {
 
-    Submission submitTask(Long taskId,String githubLink,Long userId) throws Exception;
+    Submission submitTask(Long taskId,String githubLink,Long userId,String jwt) throws Exception;
 
     Submission getTaskSubmissionId(Long submissionId) throws Exception;
 

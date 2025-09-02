@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface TaskService {
 
     @GetMapping("/api/tasks/{id}")
-    public ResponseEntity<TaskDto> getTaskById(@PathVariable Long id, @RequestHeader("Authorization") String jwt) throws Exception;
+    public TaskDto getTaskById(@PathVariable Long id, @RequestHeader("Authorization") String jwt) throws Exception;
 
 
-    @PutMapping("/{id}/complete")
-    public ResponseEntity<TaskDto> completeTask(@PathVariable Long id) throws Exception;
+    @PutMapping("api/tasks/{id}/complete")
+    public TaskDto completeTask(@PathVariable Long id) throws Exception;
 }
