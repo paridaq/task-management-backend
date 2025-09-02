@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/submissions")
 public class SubmissionController {
@@ -34,8 +36,37 @@ public class SubmissionController {
    //we use pathvariable anotation to extraract value from the url
     //we use requestparam to extract query parameter
 
-   @GetMapping()
-    public ResponseEntity<Submission>getSubmissionId()(@PathVariable Long id)
+   @GetMapping("{id}")
+    public ResponseEntity<Submission>getSubmissionId(@PathVariable Long id,@RequestHeader ("Authorization") String jwt) throws Exception{
+
+       UserDto user = userService.getUserProfile(jwt);
+       Submission submission= submissionService.getTaskSubmissionId(id);
+       return new ResponseEntity<>(submission,HttpStatus.OK);
+   }
+
+    @GetMapping()
+    public ResponseEntity<List<Submission>>getSubmissions(@RequestHeader ("Authorization") String jwt) throws Exception{
+
+       UserDto user = userService.getUserProfile(jwt);
+       List<Submission> submissions = submissionService.getAllTaskSubmissions();
+       return new ResponseEntity<>(submissions,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/task/{taskId}")
+    public ResponseEntity<List<Submission>> getAllTaskSubmissions(@PathVariable Long taskId,@RequestHeader("Authorization") String jwt) throws  Exception{
+       UserDto user = userService.getUserProfile(jwt);
+       List<Submission> submissions = submissionService.geTaskSubmmisionByTaskId(taskId);
+       return new ResponseEntity<>(submissions,HttpStatus.OK);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Submission> acceptOrDeclineSubmissions(@PathVariable Long id,@RequestHeader("Authorization") String jwt,@RequestParam ("status") String status) throws  Exception{
+     UserDto user = userService.getUserProfile(jwt);
+     Submission submission = submissionService.acceptDeclineSubmission(id,status);
+     return new ResponseEntity<>(submission,HttpStatus.OK);
+    }
+
+
 
 
 
