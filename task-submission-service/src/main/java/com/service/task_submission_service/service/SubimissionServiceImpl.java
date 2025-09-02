@@ -54,7 +54,10 @@ public class SubimissionServiceImpl implements SubmissionService {
     public Submission acceptDeclineSubmission(Long id, String status) throws Exception {
         Submission submission = getTaskSubmissionId(id);
         submission.setStatus(status);
-        taskService.completeTask(submission.getTaskId());
+        if(status.equals("ACCEPT")){
+            taskService.completeTask(submission.getTaskId());
+        }
+
         return submissionRepository.save(submission);
     }
 }
