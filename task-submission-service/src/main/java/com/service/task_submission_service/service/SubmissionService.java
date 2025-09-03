@@ -1,8 +1,10 @@
 package com.service.task_submission_service.service;
 
 import com.service.task_submission_service.modal.Submission;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 public interface SubmissionService {
 

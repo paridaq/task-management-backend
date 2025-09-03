@@ -4,10 +4,12 @@ import com.service.task_submission_service.modal.Submission;
 import com.service.task_submission_service.modal.TaskDto;
 import com.service.task_submission_service.repository.SubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class SubimissionServiceImpl implements SubmissionService {
     @Autowired
     private SubmissionRepository submissionRepository;
