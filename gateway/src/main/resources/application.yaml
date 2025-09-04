@@ -7,6 +7,14 @@ spring:
     name: GATEWAY-SERVICE
 
 
+cloud:
+  gateway:
+    mvc:
+      routes:
+        -id: USER-SERVICE
+        uri: lb://USER-SERVICE
+        predicates:
+          - path: /auth/**,/users/**,/api/users/**,/
 
 
 
